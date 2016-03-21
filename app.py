@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-import configparser
 import os
 from subprocess import Popen, PIPE
 from flask import Flask, request, jsonify, url_for
+
+from cfgutils import read_config, dump_config_json, valid_cfg
 
 app = Flask(__name__)
 
@@ -14,6 +15,10 @@ process = None
 @app.route("/")
 def index():
     """Returns information about the command and possible routes"""
+    if not valid_cfg(dump_config_json()):
+        cfg_error = "The specified configuration file is invalid"
+        return jsonify({"description": cfg_error})
+    
     return jsonify({"description": read_config('description')})
 
 
@@ -41,13 +46,6 @@ def result():
     process.kill()
     process = None
     return jsonify({"response": str(res[0])})
-
-
-def read_config(key):
-    """Read key from config"""
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    return config['main'][key]
 
 
 if __name__ == "__main__":
