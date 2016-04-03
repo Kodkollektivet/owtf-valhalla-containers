@@ -1,7 +1,20 @@
 
 {
-    "title": "Do Stuff",
-    "description": "A tool that does stuff!",
-    "command": "scripts/do_stuff.sh",
-    "arguments": ""
+    "title": "Nmap",
+    "version": "0.1",
+    "description": "OWTF Nmap docker container",
+    "commands": [
+        {
+            "type": "active",
+            "code": "666",
+            "command": "ping -c 5",
+            "args": ""
+        },
+        {
+            "type": "semi-active",
+            "code": "666",
+            "command": "nmap",
+            "args": ""
+        }
+    ]
 }

@@ -1,9 +1,9 @@
 FROM python:3.5
-RUN apt-get update
+RUN apt-get update && apt-get -y install nmap
 RUN pip install --upgrade pip
 
-ADD . /webapp
-WORKDIR /webapp
+ADD . /owtf
+WORKDIR /owtf
 
 RUN pip install -r requirements.txt
 
