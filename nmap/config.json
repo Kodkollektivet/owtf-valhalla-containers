@@ -5,16 +5,18 @@
     "description": "OWTF Nmap docker container",
     "commands": [
         {
-            "type": "active",
+            "noise": "active",
             "code": "666",
+            "description": "Active nmap scan, make ALOT of noise.",
             "command": "ping -c 5",
-            "args": ""
+            "target": ""
         },
         {
-            "type": "semi-active",
+            "noise": "semi-active",
             "code": "666",
+            "description": "semi-active nmap scan, makes a little less noise.",
             "command": "nmap",
-            "args": ""
+            "target": ""
         }
     ]
 }

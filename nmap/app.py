@@ -38,14 +38,14 @@ def index():
                     })
 
 
-@app.route("/run", methods=['POST'])
+@app.route("/run", methods=['POST','HEAD'])
 def run():
     """Starts the subproccess"""
     global process
 
     req = request.get_json(force=True)
 
-    execute = req.get('command') + ' ' + req.get('args')
+    execute = req.get('command')
 
     process = subprocess.Popen(execute, shell=True, stdout=subprocess.PIPE)
     return jsonify({"message": "Subprocess started"})
@@ -57,14 +57,14 @@ def result():
     global process
 
     if not process:
-        return jsonify({"status": 0, "response": "No running proccess"})
+        return jsonify({"status": 1, "response": "No running proccess"})
     elif not process.poll() == 0:
-        return jsonify({"status": 1, "response": "Process still running"})
+        return jsonify({"status": 2, "response": "Process still running"})
 
     res = process.communicate()
     process.kill()
     process = None
-    return jsonify({"status": 2, "response": str(res[0])})
+    return jsonify({"status": 0, "response": str(res[0])})
 
 
 @app.route("/config", methods=['GET'])
